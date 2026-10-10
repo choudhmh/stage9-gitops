@@ -29,5 +29,5 @@ spec:
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "fastapi-redis.fullname" . }}-secret
+                  name: {{ .Values.redis.existingSecret }}
                   key: REDIS_PASSWORD

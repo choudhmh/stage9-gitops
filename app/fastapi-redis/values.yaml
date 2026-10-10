@@ -13,11 +13,11 @@ fastapi:
 redis:
   image: redis:7
   port: 6379
-  password: redispass123
+  existingSecret: fastapi-redis-secret
   storage: 1Gi
 
 ingress:
   enabled: true
   className: nginx
-  host: helm.localhost
+  host: gitops.localhost
   path: /api(/|$)(.*)
