@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "fastapi-redis.fullname" . }}-redis
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.redis.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "fastapi-redis.fullname" . }}-redis

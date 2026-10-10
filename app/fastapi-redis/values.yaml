@@ -11,6 +11,7 @@ fastapi:
     port: 8000
 
 redis:
+  replicaCount: 1
   image: redis:7
   port: 6379
   existingSecret: fastapi-redis-secret
