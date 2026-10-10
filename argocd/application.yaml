@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fastapi-redis-gitops
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/choudhmh/stage9-gitops.git
+    targetRevision: main
+    path: app/fastapi-redis
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitops-demo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
