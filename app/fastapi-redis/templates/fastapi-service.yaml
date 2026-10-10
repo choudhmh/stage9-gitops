@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fastapi-redis.fullname" . }}-fastapi
+spec:
+  selector:
+    app: {{ include "fastapi-redis.fullname" . }}-fastapi
+  ports:
+    - port: {{ .Values.fastapi.service.port }}
+      targetPort: {{ .Values.fastapi.service.port }}
+  type: {{ .Values.fastapi.service.type }}

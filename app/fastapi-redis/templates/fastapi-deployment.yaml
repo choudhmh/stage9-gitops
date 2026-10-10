@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fastapi-redis.fullname" . }}-fastapi
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "fastapi-redis.fullname" . }}-fastapi
+  template:
+    metadata:
+      labels:
+        app: {{ include "fastapi-redis.fullname" . }}-fastapi
+    spec:
+      containers:
+        - name: fastapi
+          image: "{{ .Values.fastapi.image.repository }}:{{ .Values.fastapi.image.tag }}"
+          imagePullPolicy: {{ .Values.fastapi.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.fastapi.service.port }}
+          env:
+            - name: REDIS_HOST
+              value: {{ include "fastapi-redis.fullname" . }}-redis
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "fastapi-redis.fullname" . }}-config
+                  key: REDIS_PORT
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fastapi-redis.fullname" . }}-secret
+                  key: REDIS_PASSWORD

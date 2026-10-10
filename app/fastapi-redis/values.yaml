@@ -1,0 +1,23 @@
+replicaCount: 1
+
+fastapi:
+  image:
+    repository: stage1-fastapi
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 8000
+
+redis:
+  image: redis:7
+  port: 6379
+  password: redispass123
+  storage: 1Gi
+
+ingress:
+  enabled: true
+  className: nginx
+  host: helm.localhost
+  path: /api(/|$)(.*)
